@@ -1,5 +1,10 @@
-﻿namespace GradeBook;
+﻿namespace GradeBook.Models;
 
-public class Grade
+public enum Grade
 {
+    A,
+    B,
+    C,
+    D,
+    F
 }

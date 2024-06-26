@@ -2,9 +2,21 @@
 
 public class Teacher
 {
-    public Guid Id { get; init; }
-    public string FirstName { get; init; } = "";
-    public string LastName { get; init; } = "";
-    public string Email { get; init; } = "";
+    public Guid TeacherId { get; }
+    public string FirstName { get; }
+    public string LastName { get; }
+    public string Email { get; }
+
+    public Teacher(
+        Guid teacherId,
+        string firstName,
+        string lastName,
+        string email)
+    {
+        TeacherId = teacherId;
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+    }
 
 }
