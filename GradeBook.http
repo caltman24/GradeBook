@@ -1,6 +1,13 @@
 @GradeBook_HostAddress = http://localhost:5068
 
-GET {{GradeBook_HostAddress}}/weatherforecast/
+GET {{GradeBook_HostAddress}}/student
 Accept: application/json
 
 ###
+POST {{GradeBook_HostAddress}}/student
+Content-Type: application/json
+
+{
+    "firstName": "Corbyn",
+    "lastName": "Altman"
+}

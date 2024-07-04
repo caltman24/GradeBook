@@ -1,13 +1,11 @@
 namespace GradeBook.Models;
 
-class Enrollment
+public class Enrollment
 {
-    public Guid EnrollmentId { get; }
-    public string Name { get; }
+    public Guid Id { get; set; }
+    public Guid CourseId { get; set; }
+    public Guid TeacherId { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
 
-    public Enrollment(Guid enrollmentId, string name)
-    {
-        EnrollmentId = enrollmentId;
-        Name = name;
-    }
 }

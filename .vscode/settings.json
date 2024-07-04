@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "gradebook",
+      "database": "gradebook",
+      "username": "postgres",
+      "password": "password"
+    }
+  ]
+}

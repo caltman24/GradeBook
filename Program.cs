@@ -1,25 +1,39 @@
+using System.Data;
+using System.Reflection;
+using Dapper;
+using FluentMigrator.Runner;
+using GradeBook;
+using GradeBook.Extensions;
 using GradeBook.Models;
+using GradeBook.Repositories;
+using GradeBook.Routes;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+DefaultTypeMap.MatchNamesWithUnderscores = true;
+
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services
+    .AddFluentMigratorCore()
+    .ConfigureRunner(rb => rb
+        .AddPostgres()
+        .WithGlobalConnectionString(builder.Configuration.GetConnectionString("postgres"))
+        .ScanIn(Assembly.GetExecutingAssembly()).For.Migrations())
+        .AddLogging(lb => lb.ClearProviders().AddFluentMigratorConsole());
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.MapStudentRoute();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.MapGet("/error", () => TypedResults.Problem());
 
-app.MapGet("/course", () =>
-{
-});
+app.UseExceptionHandler("/error");
+
+app.UpdateDatabase();
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
